@@ -1,70 +1,93 @@
-# Windows image file caches
-Thumbs.db
-ehthumbs.db
-
-# Folder config file
-Desktop.ini
-
-# Recycle Bin used on file shares
-$RECYCLE.BIN/
-
-# Windows Installer files
-*.cab
-*.msi
-*.msm
-*.msp
-
-# =========================
-# Operating System Files
-# =========================
-
-# OSX
-# =========================
-
-.DS_Store
-.AppleDouble
-.LSOverride
-
-# Icon must ends with two \r.
-Icon
-# Thumbnails
-._*
-
-# Files that might appear on external disk
-.Spotlight-V100
-.Trashes
-
-# This is a template .gitignore file for git-managed WordPress projects.
+# -----------------------------------------------------------------
+# .gitignore for WordPress @salcode
+# ver 20150227
 #
-# Fact: you don't want WordPress core files, or your server-specific
-# configuration files etc., in your project's repository. You just don't.
+# From the root of your project run
+# curl -O https://gist.githubusercontent.com/salcode/b515f520d3f8207ecd04/raw/.gitignore
+# to download this file
 #
-# Solution: stick this file up your repository root (which it assumes is
-# also the WordPress root directory) and add exceptions for any plugins,
-# themes, and other directories that should be under version control.
+# By default all files are ignored.  You'll need to whitelist
+# any mu-plugins, plugins, or themes you want to include in the repo.
 #
-# See the comments below for more info on how to add exceptions for your
-# content. Or see git's documentation for more info on .gitignore files:
-# http://kernel.org/pub/software/scm/git/docs/gitignore.html
- 
-# Ignore everything in the root except the "wp-content" directory.
+# To ignore uncommitted changes in a file that is already tracked, use 
+# git update-index --assume-unchanged
+#
+# To stop tracking a file that is currently tracked, use 
+# git rm --cached
+#
+# Change Log:
+# 20150302 Added composer.json as a whitelisted file
+# 20150227 Created as fork of https://gist.github.com/salcode/9940509,
+#   this version ignores all files by default
+# -----------------------------------------------------------------
+
+# ignore everything in the root except the "wp-content" directory.
 /*
-!.gitignore
 !wp-content/
- 
-# Ignore everything in the "wp-content" directory, except the "plugins"
-# and "themes" directories.
+
+# ignore everything in the "wp-content" directory, except:
+# mu-plugins, plugins, and themes directories
 wp-content/*
+!wp-content/mu-plugins/
 !wp-content/plugins/
 !wp-content/themes/
- 
-# Ignore everything in the "plugins" directory, except the plugins you
-# specify (see the commented-out examples for hints on how to do this.)
-# wp-content/plugins/*
-# !wp-content/plugins/my-single-file-plugin.php
-# !wp-content/plugins/my-directory-plugin/
- 
-# Ignore everything in the "themes" directory, except the themes you
-# specify (see the commented-out example for a hint on how to do this.)
-# wp-content/themes/*
-# !wp-content/themes/my-theme/
+
+# ignore all mu-plugins, plugins, and themes
+# unless explicitly whitelisted at the end of this file
+wp-content/mu-plugins/*
+wp-content/plugins/*
+wp-content/themes/*
+
+# ignore all files starting with . or ~
+.*
+~*
+
+# ignore node dependency directories (used by grunt)
+node_modules/
+
+# ignore OS generated files
+ehthumbs.db
+Thumbs.db
+
+# ignore Editor files
+*.sublime-project
+*.sublime-workspace
+*.komodoproject
+
+# ignore log files and databases
+*.log
+*.sql
+*.sqlite
+
+# ignore compiled files
+*.com
+*.class
+*.dll
+*.exe
+*.o
+*.so
+
+# ignore packaged files
+*.7z
+*.dmg
+*.gz
+*.iso
+*.jar
+*.rar
+*.tar
+*.zip
+
+# -------------------------
+# BEGIN Whitelisted Files
+# -------------------------
+
+# track these files, if they exist
+!.gitignore
+!.editorconfig
+!README.md
+!CHANGELOG.md
+!composer.json
+
+# track these mu-plugins, plugins, and themes
+# add your own entries here
+!wp-content/themes/capitol/
