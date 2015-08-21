@@ -31,7 +31,7 @@
       
       <div class="header-content">
 
-        <a href="#" class="logo"></a>
+        <a href="#" class="logo">Cinelogue</a>
 
         <?php
           $defaults = array(

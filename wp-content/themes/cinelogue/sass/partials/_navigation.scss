@@ -90,7 +90,7 @@ body.pml-open main {
   margin-left: 180px;
   position: absolute;
   bottom: 0;
-  height: auto;
+  height: 100%;
   z-index: 999999;
   ul {
     @extend %clearfix;
@@ -101,12 +101,15 @@ body.pml-open main {
         @include respond-to(laptop) {
           font-size: $base;
         }
-        color: $text-black;
+        color: $white;
         display: block;
+        font-family: $header-font;
         font-size: $ms7;
         letter-spacing: 0.1em;
-        padding: $base $ms4;
+        line-height: 100px;
+        padding: 0 $ms4;
         text-transform: uppercase;
+        height: 100%;
         &:hover {
           background-color: $dark-blue;
           color: $white;

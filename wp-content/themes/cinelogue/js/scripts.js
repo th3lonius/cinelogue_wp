@@ -1,7 +1,7 @@
 jQuery(document).ready(function($){
   
 /*----- FLOWTYPE -----*/
-$('article').flowtype({
+$('body').flowtype({
   minFont : 18,
   maxFont : 32,
   fontRatio : 80

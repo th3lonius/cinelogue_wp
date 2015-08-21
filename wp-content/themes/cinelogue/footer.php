@@ -1,6 +1,14 @@
 </main>
    
-    <?php wp_footer(); ?>
+<?php wp_footer(); ?>
+ 
+  <footer>
+   
+    <div class="footer-wrapper">gfhfgh</div>
+    
+  </footer>
+   
+    
 	    
     <!--[if lt IE 9]>
     <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
