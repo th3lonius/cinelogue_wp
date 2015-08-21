@@ -1,0 +1,21 @@
+/* COLORS */
+$orange: #E27A3F;
+$light-blue: hsl(196, 100%, 47%);
+$dark-blue: #008db9;
+$dark-gold: hsla(36, 50%, 40%, 1.0);
+$light-gold: lighten($dark-gold, 8%);
+$black: hsla(345, 6%, 13%, 1.0);
+$text-black: rgba(0,0,0,0.8);
+$mask-black: hsla(345, 6%, 13%, 0.7);
+$white: rgba(255,255,255,1.0);
+$gray: #6d6e71;
+
+/* FONTS */
+$title-font: "velino-poster", sans-serif;
+$header-font: "brandon-grotesque", sans-serif;
+$display-font: "leitura-news", sans-serif;
+
+/* STACK */
+$base-padding: 3rem;
+$golden: 1.61803398875;
+$header-height: 110px;

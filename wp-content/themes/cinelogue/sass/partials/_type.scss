@@ -1,0 +1,63 @@
+/* =HIERARCHY */
+$ms1: 3.052em;
+$ms2: 2.441em;
+$ms3: 1.953em;
+$ms4: 1.563em;
+$ms5: 1.25em;
+$ms6: 1em;
+$ms7: 0.8em;
+$ms8: 0.64em;
+
+$base: 1em;
+
+/* =HEADINGS */
+%headings {
+  color: $dark-gold;
+  display: block;
+  font-family: $title-font;
+  font-weight: 400;
+  line-height: 1.2;
+}
+
+h1, h2, h3, h4, h5, h6 { @extend %headings; }
+
+h1 { font-size: $ms1; }
+
+h2 { font-size: $ms2; }
+
+h3 { font-size: $ms3; }
+
+h4 { font-size: $ms4; }
+
+/* =COMMON
+----------------------------------------------- */
+p {
+  font-family: $display-font;
+  font-size: $base;
+  line-height: $golden;
+  em { font-style: italic; }
+}
+
+section p { margin-bottom: 2rem; }
+
+a {
+  color: $dark-gold;
+  &:hover {
+      @include transition(color, 0.3s, ease);
+
+  }
+}
+
+blockquote {
+  p {
+    font-size: $ms4 !important;
+    font-weight: 700;
+    line-height: 1.2;
+  }
+}
+
+strong { font-weight: 700; }
+
+/* =LINKS
+----------------------------------------------- */
+a, a:link, a:visited { text-decoration: none; }
