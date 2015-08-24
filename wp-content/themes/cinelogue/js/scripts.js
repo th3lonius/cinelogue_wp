@@ -32,10 +32,12 @@ function fade_header() {
 
   window_scroll = $(document).scrollTop();
 
-  if ( window_scroll > 300) {
+  if ( window_scroll > 500) {
     $('.global-header').addClass('small-header');
+    $('.single-essay--intro').addClass('floating-intro');
   } else {
     $('.global-header').removeClass('small-header');
+    $('.single-essay--intro').removeClass('floating-intro');
   }
 }
 

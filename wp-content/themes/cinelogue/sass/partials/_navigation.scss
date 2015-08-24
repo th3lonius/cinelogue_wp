@@ -86,8 +86,9 @@ body.pml-open main {
 }
 
 .nav-main {
+  @include transition;
   display: inline-block;
-  margin-left: 180px;
+  margin-left: 200px;
   position: absolute;
   bottom: 0;
   height: 100%;

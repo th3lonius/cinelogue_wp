@@ -36,6 +36,7 @@ License URI: http://www.gnu.org/licenses/gpl-2.0.html
 ----------------------------------------------- */
 main {
   @include transition(all, .3s, ease);
+  @extend %clearfix;
   overflow-y: overlay;
   position: relative;
   right: 0;
@@ -149,15 +150,23 @@ main.interior {
 ----------------------------------------------- */
 .small-header {
   background: $black;
-  .logotype {
-    @include translate(-12px, -19px);
-    height: 40px;
+  padding: 0 2em;
+  right: auto!important;
+  width: auto!important;
+  .logo {
+
   }
   .lines-button {
     @include transform(translate(20px, -21px) scale(0.9));
   }
   .scroll-quote {
     opacity: 1;
+  }
+  .nav-main {
+    margin-left: -1000px;
+  }
+  main ~ .single-essay--photo {
+    width: 100%!important;
   }
 }
 
@@ -177,7 +186,7 @@ main.interior {
 }
 
 .global-header {
-  @include transition(all, 0.3s, ease);
+  @include transition(all, 0.3s, ease-in-out, 0.1s);
   position: fixed;
   top: 0; left: 0; right: 0;
   width: 100%; height: 100px;
@@ -191,7 +200,7 @@ main.interior {
   @include transition(all, 0.3s, ease);
   display: block;
   line-height: 100px;
-  padding: 8px 12px;
+  padding: 0 46px;
   position: relative;
   top: 0; bottom: 0; left: $ms1;
   width: auto; height: 100%;
@@ -412,8 +421,19 @@ main.interior {
 
 /* =SINGLE ESSAY
 ----------------------------------------------- */
+.floating-intro {
+  @include transition;
+  font-size: 0.7em;
+  width: 20%;
+  header {
+    text-align: left!important;
+    top: -12em;
+  }
+}
+
 .single-essay {
   @extend %essay-intro;
+  background-color: $black;
   &--photo {
     background-repeat: no-repeat;
     background-size: cover;
@@ -426,42 +446,66 @@ main.interior {
     @extend %flexbox;
     @include respond-to(tablet) {
       background-color: $black;
-      position: relative;
+      position: fixed;
+      top: 0; right: 0;
+      z-index: 9999;
     }
     background-color: transparentize($black, 0.5);
     position: absolute;
     height: 100%;
     header {
       color: $white;
-      padding: $base 20vh;
+      padding: $base 10vh;
       position: relative;
       text-align: center;
       z-index: 2;
       .single-essay--title {
         font-size: $ms1;
       }
-      date {
-        display: block;
-        font-family: $header-font;
-        font-size: $ms6;
+      .single-essay--meta {
+        border-top: 1px solid $white;
+        display: inline-block;
+        margin-top: $ms8;
+        padding-top: $ms8;
+        date {
+          display: block;
+          font-family: $header-font;
+          font-size: $ms6;
+          font-weight: 300;
+        }
+        span {
+          display: block;
+          font-family: $display-font;
+          font-size: $ms8;
+          font-style: italic;
+        }
+        cite {
+          font-family: $header-font;
+          font-style: normal;
+          font-weight: 300;
+        }
       }
-      span {
-        display: block;
-        font-family: $display-font;
-        font-size: $ms8;
+      .film--meta {
         font-style: italic;
-      }
-      cite {
-        font-family: $header-font;
-        font-style: normal;
       }
     }
   }
 }
 
 .single-essay--body {
+  @extend %clearfix;
+  float: none;
   margin: 0 auto;
-  padding: $ms1;
+  padding: $ms1 0;
+  aside {
+    padding-right: $ms2;
+    li {
+      margin-bottom: $ms5;
+    }
+  }
+  aside, section {
+    float: right;
+  }
 }
 
 /* =FOOTER
