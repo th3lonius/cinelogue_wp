@@ -2,7 +2,7 @@ jQuery(document).ready(function($){
   
 /*----- FLOWTYPE -----*/
 $('body').flowtype({
-  minFont : 18,
+  minFont : 16,
   maxFont : 32,
   fontRatio : 80
 });
@@ -32,12 +32,12 @@ function fade_header() {
 
   window_scroll = $(document).scrollTop();
 
-  if ( window_scroll > 500) {
+  if ( window_scroll > 380) {
     $('.global-header').addClass('small-header');
-    $('.single-essay--intro').addClass('floating-intro');
+    $('.single-essay').addClass('floating-intro');
   } else {
     $('.global-header').removeClass('small-header');
-    $('.single-essay--intro').removeClass('floating-intro');
+    $('.single-essay').removeClass('floating-intro');
   }
 }
 

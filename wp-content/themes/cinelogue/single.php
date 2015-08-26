@@ -24,41 +24,15 @@
   <section class="col-4-12 single-essay--intro">
 
     <header>
+     
       <h1 class="single-essay--title"><?php the_title(); ?></h1>
       
-      <?php
-
-      $imdbid = get_field('imdb_id');
-
-      $result = file_get_contents("http://www.omdbapi.com/?i=tt$imdbid&r=json");
-      $array = json_decode($result, true);
-      $year = $array['Year'];
-      $country = $array['Country'];
-      $director = $array['Director'];
-      $language = $array['Language'];
-      $runtime = $array['Runtime'];
-
-      update_post_meta($id, 'year', $year);
-      update_post_meta($id, 'country', $country);
-      update_post_meta($id, 'director', $director);
-      update_post_meta($id, 'language', $language);
-      update_post_meta($id, 'runtime', $runtime);
-
-      ?>
-     
-      <ul class="film--meta">
-        <li><?php the_field('director'); ?></li>
-        <li><?php the_field('country'); ?>  /  <?php the_field('year'); ?></li>
-        <li><?php the_field('language'); ?></li>
-        <li><?php the_field('runtime'); ?></li>
-      </ul>
+      <?php get_template_part( 'module', 'imdb-api' ); ?>
       
-      <div class="single-essay--meta">
-        <date><?php echo get_the_date(); ?></date>
-        <span>by</span>
-        <cite><?php the_author_firstname(); ?> <?php the_author_lastname(); ?></cite>
-      </div>
- 
+      <?php get_template_part( 'module', 'film-meta' ); ?>
+      
+      <?php get_template_part( 'module', 'single-essay-meta' ); ?>
+
     </header>
 
   </section>
@@ -67,14 +41,15 @@
    
 <article class="col-10-12 single-essay--body">
      
-  <section class="col-7-12">
+  <section class="col-8-12">
              
       <?php the_content(); ?>
 
   </section>
-      
-  <aside class="col-3-12">
-    <?php if( have_rows('screencaps') ): ?>
+ 
+<!--
+  <aside class="col-4-12">
+    <?php /*if( have_rows('screencaps') ): ?>
 
         <ul class="slides">
 
@@ -94,7 +69,16 @@
 
         </ul>
 
-    <?php endif; ?>
+    <?php endif; */?>
+  </aside>
+-->
+      
+  <aside class="col-4-12">
+  
+    <blockquote>
+      <p><?php the_field('pullquote'); ?></p>
+    </blockquote>
+  
   </aside>
        
 

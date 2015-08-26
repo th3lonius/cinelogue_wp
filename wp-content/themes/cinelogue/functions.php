@@ -16,10 +16,26 @@ if ( ! function_exists( 'cinelogue_setup' ) ) :
 
 add_filter( 'jpeg_quality', create_function( '', 'return 80;' ) );
 
-function custom_excerpt_length( $length ) {
-	return 16;
+// Create the Custom Excerpts callback
+function variable_excerpt($length_callback = '', $more_callback = '')
+{
+    global $post;
+    if (function_exists($length_callback)) {
+        add_filter('excerpt_length', $length_callback);
+    }
+    if (function_exists($more_callback)) {
+        add_filter('excerpt_more', $more_callback);
+    }
+    $output = get_the_excerpt();
+    $output = apply_filters('wptexturize', $output);
+    $output = apply_filters('convert_chars', $output);
+    $output = '<p>' . $output . '</p>';
+    echo $output;
 }
-add_filter( 'excerpt_length', 'custom_excerpt_length', 999 );
+// Custom Length 
+function variable_excerpt_length($length) {
+    return 18;
+}
 
 function posts_orderby_lastname ($orderby_statement) 
 {

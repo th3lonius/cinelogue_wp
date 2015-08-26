@@ -47,20 +47,27 @@
     // height = $image[2];
     ?>
     
-    <section class="col-8-12 recent-article">
+    <section class="col-8-12 recent-article" id="most-recent">
       
       <a href="<?php the_permalink();?>">
 
-        <figure>
+        <figure class="recent-article--photo">
           <div style="background-image: url(<?php echo $image[0]; ?>);"></div>
         </figure>
 
         <header>
+         
           <h1 class="essay-title"><?php the_title(); ?></h1>
+          
           <date><?php the_date(); ?></date>
+          
+          <?php get_template_part( 'module', 'film-meta' ); ?>
+
+          <?php get_template_part( 'module', 'single-essay-meta' ); ?>
+          
         </header>
 
-        <?php the_excerpt(); ?>
+        <blockquote><?php the_excerpt(); ?></blockquote>
       
       </a>
       
@@ -113,17 +120,24 @@
       
       <a href="<?php the_permalink();?>">
 
-        <figure>
+        <figure class="recent-article--photo">
           <div style="background-image: url(<?php echo $image[0]; ?>);"></div>
         </figure>
 
         <header>
-          <h3 class="essay-title"><?php the_title(); ?></h3>
-          <date><?php the_date(); ?></date>
-        </header>
+         
+          <h1 class="essay-title"><?php the_title(); ?></h1>
+                    
+          <?php get_template_part( 'module', 'film-meta' ); ?>
 
-        <?php the_excerpt(); ?>
-      
+          <?php get_template_part( 'module', 'single-essay-meta' ); ?>
+          
+        </header>
+        
+        <blockquote>
+          <?php variable_excerpt('variable_excerpt_length'); ?>
+        </blockquote>
+
       </a>
       
     </section>

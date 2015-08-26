@@ -313,7 +313,6 @@ main.interior {
       @extend %flexbox;
       background: $black;
       width: 100%; height: 100%;
-
       .section-title {
         background-color: $black;
         color: $white;
@@ -337,18 +336,15 @@ main.interior {
     }
   }
   .recent-article {
-    @include respond-to(tablet) {
-      height: 500px;
-    }
-    @include respond-to(desktop) {
-      height: 600px;
-    }
+    @include respond-to(tablet) { height: 500px; }
+    @include respond-to(desktop) { height: 600px; }
+    @include respond-to(tv) { height: 750px; }
     float: left;
     height: 400px;
     overflow: hidden;
     padding: $ms7;
     position: relative;
-    &:hover div {
+    &:hover .recent-article--photo div {
       @include respond-to(tablet) {
         @include imgblur(1);
         &::after {
@@ -363,18 +359,22 @@ main.interior {
       }
     }
     &:hover header {
-      @include respond-to(tablet) {
-        top: 45%;
+      @include respond-to(tablet) { top: 45%; }
+      .single-essay--meta {
+        @include respond-to(tablet) { opacity: 0; }
       }
     }
-    &:hover p {
+    &:hover blockquote {
       @include respond-to(tablet) {
-        @include translate(-50%, -75%);
+        @include translate(-50%, -90%);
         left: 50%;
         opacity: 1;
       }
+      @include respond-to(laptop) {
+        @include translate(-50%, -80%);
+      }
     }
-    figure {
+    &--photo {
       @include transition;
       position: relative;
       width: 100%; height: 100%;
@@ -403,8 +403,15 @@ main.interior {
       text-align: center;
       width: 100%; height: auto;
       z-index: 999;
+      .single-essay--meta {
+        @include transition(all, 0.3s, ease-in-out, 0.1s);
+        opacity: 1;
+      }
+      .essay-title {
+        font-size: $ms2;
+      }
     }
-    p {
+    blockquote {
       @include translate(-50%, 0);
       @include transition(all, 0.3s, ease-in-out, 0.1s);
       color: $white;
@@ -419,15 +426,30 @@ main.interior {
   }
 }
 
+#most-recent {
+  &:hover blockquote {
+    @include respond-to(tablet) {
+      @include translate(-50%, -60%);
+      left: 50%;
+      opacity: 1;
+    }
+  }
+}
+
 /* =SINGLE ESSAY
 ----------------------------------------------- */
 .floating-intro {
-  @include transition;
-  font-size: 0.7em;
-  width: 20%;
-  header {
-    text-align: left!important;
-    top: -12em;
+  .single-essay--photo {
+    width: 100%!important;
+  }
+  .single-essay--intro {
+    @include respond-to(tablet) {
+      font-size: 0.7em;
+      width: 20vw;
+    }
+    header {
+      padding: $base 5vh!important;
+    }
   }
 }
 
@@ -444,6 +466,7 @@ main.interior {
   }
   &--intro {
     @extend %flexbox;
+    @include transition(all, 0.2s, cubic-bezier(0.165, 0.84, 0.44, 1), 0.1s);
     @include respond-to(tablet) {
       background-color: $black;
       position: fixed;
@@ -457,33 +480,11 @@ main.interior {
       color: $white;
       padding: $base 10vh;
       position: relative;
+      top: 0;
       text-align: center;
       z-index: 2;
       .single-essay--title {
         font-size: $ms1;
-      }
-      .single-essay--meta {
-        border-top: 1px solid $white;
-        display: inline-block;
-        margin-top: $ms8;
-        padding-top: $ms8;
-        date {
-          display: block;
-          font-family: $header-font;
-          font-size: $ms6;
-          font-weight: 300;
-        }
-        span {
-          display: block;
-          font-family: $display-font;
-          font-size: $ms8;
-          font-style: italic;
-        }
-        cite {
-          font-family: $header-font;
-          font-style: normal;
-          font-weight: 300;
-        }
       }
       .film--meta {
         font-style: italic;
@@ -494,11 +495,19 @@ main.interior {
 
 .single-essay--body {
   @extend %clearfix;
+  @include respond-to(tablet) {
+    padding: $ms1 21vw $ms1 0;
+  }
   float: none;
   margin: 0 auto;
-  padding: $ms1 0;
+  padding: 5vw;
+  section {
+    
+  }
   aside {
-    padding-right: $ms2;
+    @include respond-to(tablet) {
+      padding-right: $ms2;
+    }
     li {
       margin-bottom: $ms5;
     }
@@ -508,13 +517,37 @@ main.interior {
   }
 }
 
+.single-essay--meta {
+  border-top: 1px solid $white;
+  display: inline-block;
+  margin-top: $ms8;
+  padding-top: $ms8;
+  date {
+    display: block;
+    font-family: $header-font;
+    font-size: $ms6;
+    font-weight: 300;
+  }
+  span {
+    display: block;
+    font-family: $display-font;
+    font-size: $ms8;
+    font-style: italic;
+  }
+  cite {
+    font-family: $header-font;
+    font-style: normal;
+    font-weight: 300;
+  }
+}
+
 /* =FOOTER
 ----------------------------------------------- */
 footer {
   //padding: $ms7*2;
   width: 100%; height: 400px;
   .footer-wrapper {
-    background-color: $black;
+    background-color: $text-black;
     padding: $ms7*2;
     width: 100%; height: 100%;
   }
