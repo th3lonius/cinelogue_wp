@@ -31,7 +31,10 @@
       
       <div class="header-content">
 
-        <a href="#" class="logo">Cinelogue</a>
+        <a class="colophon toggle-push-right">
+          <div class="logo"></div>
+          <h1>Cinelogue</h1>
+        </a>
 
         <?php
           $defaults = array(
@@ -59,6 +62,6 @@
       
     </header>
 
-    <button type="button" role="button" class="lines-button toggle-push-right"><span class="lines"></span></button>
+    <!--<button type="button" role="button" class="lines-button toggle-push-right"><span class="lines"></span></button>-->
 
     <main>

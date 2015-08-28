@@ -3,7 +3,7 @@ jQuery(document).ready(function($){
 /*----- FLOWTYPE -----*/
 $('body').flowtype({
   minFont : 16,
-  maxFont : 32,
+  maxFont : 34,
   fontRatio : 80
 });
 
@@ -112,7 +112,13 @@ function setNavigation() {
     $(togglePush).click(function(){
         $(body).toggleClass('pml-open');
         activeNav = 'pml-open';
-        $("button").toggleClass("close");
+        $(".colophon").toggleClass("cp-open");
+    });
+  
+    $('main').click(function(){
+        $(body).removeClass('pml-open');
+        activeNav = 'pml-open';
+        $(".colophon").removeClass("cp-open");
     });
 
 

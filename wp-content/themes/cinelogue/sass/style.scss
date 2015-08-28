@@ -35,12 +35,20 @@ License URI: http://www.gnu.org/licenses/gpl-2.0.html
 /* =GLOBALS
 ----------------------------------------------- */
 main {
-  @include transition(all, .3s, ease);
+  @include transition(all, 0.2s, cubic-bezier(0.165, 0.84, 0.44, 1), 0.1s);
   @extend %clearfix;
+  background-color: $white;
   overflow-y: overlay;
   position: relative;
-  right: 0;
+  left: 0;
   z-index: 10;
+  &::before {
+    @include transition(all, 0.2s, cubic-bezier(0.165, 0.84, 0.44, 1), 0.1s);
+    background-color: transparent;
+    content: "";
+    position: absolute;
+    z-index: 9999999;
+  }
 }
 
 article {
@@ -148,28 +156,6 @@ main.interior {
 
 /* =HEADER
 ----------------------------------------------- */
-.small-header {
-  background: $black;
-  padding: 0 2em;
-  right: auto!important;
-  width: auto!important;
-  .logo {
-
-  }
-  .lines-button {
-    @include transform(translate(20px, -21px) scale(0.9));
-  }
-  .scroll-quote {
-    opacity: 1;
-  }
-  .nav-main {
-    margin-left: -1000px;
-  }
-  main ~ .single-essay--photo {
-    width: 100%!important;
-  }
-}
-
 .scroll-quote {
   @include respond-to(tablet) {
     @include transition(all, 0.3s, ease);
@@ -185,34 +171,44 @@ main.interior {
   display: none;
 }
 
-.global-header {
-  @include transition(all, 0.3s, ease-in-out, 0.1s);
-  position: fixed;
-  top: 0; left: 0; right: 0;
-  width: 100%; height: 100px;
-  z-index: 99999;
-  .header-content {
-    height: 100%;
+.cp-open {
+  width: 10vw!important; height: 170px!important;
+  .logo {
+    height: 100px!important; background-size: 75%!important;
+  }
+  h1 {
+    opacity: 1!important;
   }
 }
 
-.logo {
-  @include transition(all, 0.3s, ease);
+.colophon {
+  cursor: pointer;
   display: block;
-  line-height: 100px;
-  padding: 0 46px;
-  position: relative;
-  top: 0; bottom: 0; left: $ms1;
-  width: auto; height: 100%;
-  &::before {
-    content: "";
+  padding: $base;
+  position: fixed;
+  top: 0; left: 0;
+  width: 10vw; height: 170px;
+  &:hover .logo {
+    
+  }
+  .logo {
+    @include translate(-50%, 0);
+    @include transition;
     background-image: url(img/masthead.svg);
     background-position: center;
     background-repeat: no-repeat;
     background-size: 75%;
-    position: absolute;
-    top: 0; bottom: 0; left: -$ms1;
-    width: 120px; height: 100%;
+    display: block;
+    line-height: 100px;
+    position: relative;
+    left: 50%;
+    width: 100%; height: 100px;
+  }
+  h1 {
+    @include transition;
+    font-size: $ms5;
+    text-align: center;
+    width: 100%;
   }
 }
 
@@ -251,6 +247,9 @@ main.interior {
 ----------------------------------------------- */
 %essay-intro {
   @extend %clearfix;
+  @include respond-to(laptop) {
+    height: 120vh;
+  }
   position: relative;
   width: 100%; height: 100vh;
 }
@@ -281,18 +280,16 @@ main.interior {
       position: relative;
       text-align: center;
       z-index: 2;
-      .issue-number {
-        border-bottom: 1px solid $white;
-        font-size: $ms3;
-      }
-      .issue-title {
-        
-      }
       date {
         font-size: $ms7;
       }
     }
   }
+}
+
+.issue-number {
+  border-bottom: 1px solid $white;
+  font-size: $ms3;
 }
 
 /* =RECENT ESSAYS
@@ -413,7 +410,7 @@ main.interior {
     }
     blockquote {
       @include translate(-50%, 0);
-      @include transition(all, 0.3s, ease-in-out, 0.1s);
+      @include transition(all, 0.3s, cubic-bezier(0.165, 0.84, 0.44, 1), 0.1s);
       color: $white;
       opacity: 0;
       padding: $base $ms1;
@@ -438,6 +435,10 @@ main.interior {
 
 /* =SINGLE ESSAY
 ----------------------------------------------- */
+.film--meta {
+  font-style: italic;
+}
+
 .floating-intro {
   .single-essay--photo {
     width: 100%!important;
@@ -486,9 +487,6 @@ main.interior {
       .single-essay--title {
         font-size: $ms1;
       }
-      .film--meta {
-        font-style: italic;
-      }
     }
   }
 }
@@ -496,24 +494,39 @@ main.interior {
 .single-essay--body {
   @extend %clearfix;
   @include respond-to(tablet) {
-    padding: $ms1 21vw $ms1 0;
+    padding: $ms1+$base 21vw $ms1+$base 0;
   }
   float: none;
   margin: 0 auto;
+  overflow: visible;
   padding: 5vw;
-  section {
-    
+  a {
+    font-weight: bold;
   }
   aside {
     @include respond-to(tablet) {
       padding-right: $ms2;
     }
-    li {
-      margin-bottom: $ms5;
-    }
   }
   aside, section {
     float: right;
+  }
+  blockquote {
+    font-size: $ms5;
+    position: relative;
+    text-align: center;
+    &::before {
+      content: open-quote;
+      font-size: $ms3;
+      position: absolute;
+      top: 0; left: 0;
+    }
+    &::after {
+      content: close-quote;
+      font-size: $ms3;
+      position: absolute;
+      bottom: -40px; right: 0;
+    }
   }
 }
 
@@ -538,6 +551,28 @@ main.interior {
     font-family: $header-font;
     font-style: normal;
     font-weight: 300;
+  }
+}
+
+/* =SINGLE ISSUE
+----------------------------------------------- */
+.single-issue--contents {
+  li {
+    a {
+      display: block;
+      font-family: $display-font;
+      font-size: $ms7;
+    }
+    span {
+      font-family: $display-font;
+      font-style: italic;
+      font-weight: bold;
+    }
+    cite {
+      font-family: $header-font;
+      font-style: normal;
+      font-weight: bold;
+    }
   }
 }
 

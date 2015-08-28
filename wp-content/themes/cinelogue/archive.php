@@ -4,102 +4,73 @@
  *
  * Learn more: http://codex.wordpress.org/Template_Hierarchy
  *
- * @package tyler
+ * @package cinelogue
  */
 
 get_header(); ?>
 
-	<section id="primary" class="content-area">
-		<main id="main" class="site-main" role="main">
+<?php
+ 
+    $args = array(
+        'post_type' => 'issues',
+    );
 
-		<?php if ( have_posts() ) : ?>
+    $query = new WP_Query( $args );
 
-			<header class="page-header">
-				<h1 class="page-title">
-					<?php
-						if ( is_category() ) :
-							single_cat_title();
+?>  
 
-						elseif ( is_tag() ) :
-							single_tag_title();
+  <?php if ( $query->have_posts() ) : ?>
 
-						elseif ( is_author() ) :
-							printf( __( 'Author: %s', 'tyler' ), '<span class="vcard">' . get_the_author() . '</span>' );
+  <article class="col-12-12 recent-articles">
+    
+    <section class="col-4-12 module-header">
+      <header>
+        <h1 class="section-title">
+          <div>Articles</div>
+          <span>from</span>
+          <date>August 14th</date>
+          <span>through</span>
+          <date>August 21st</date>
+        </h1>
+      </header>
+    </section>
+    
+    <?php while ( $query->have_posts() ) : $query->the_post(); ?>
 
-						elseif ( is_day() ) :
-							printf( __( 'Day: %s', 'tyler' ), '<span>' . get_the_date() . '</span>' );
+    <section class="col-8-12 recent-article" id="most-recent">
+      
+      <a href="<?php the_permalink();?>">
 
-						elseif ( is_month() ) :
-							printf( __( 'Month: %s', 'tyler' ), '<span>' . get_the_date( _x( 'F Y', 'monthly archives date format', 'tyler' ) ) . '</span>' );
+        <figure class="recent-article--photo">
+          <div style="background-image: url(<?php echo $image[0]; ?>);"></div>
+        </figure>
 
-						elseif ( is_year() ) :
-							printf( __( 'Year: %s', 'tyler' ), '<span>' . get_the_date( _x( 'Y', 'yearly archives date format', 'tyler' ) ) . '</span>' );
+        <header>
+         
+          <h1 class="essay-title"><?php the_title(); ?></h1>
+          
+          <date><?php the_date(); ?></date>
+          
+          <?php get_template_part( 'module', 'film-meta' ); ?>
 
-						elseif ( is_tax( 'post_format', 'post-format-aside' ) ) :
-							_e( 'Asides', 'tyler' );
+          <?php get_template_part( 'module', 'single-essay-meta' ); ?>
+          
+        </header>
 
-						elseif ( is_tax( 'post_format', 'post-format-gallery' ) ) :
-							_e( 'Galleries', 'tyler');
+        <blockquote><?php the_excerpt(); ?></blockquote>
+      
+      </a>
+      
+    </section>
+      
+    <?php endwhile; ?>
 
-						elseif ( is_tax( 'post_format', 'post-format-image' ) ) :
-							_e( 'Images', 'tyler');
+  <?php else : ?>
 
-						elseif ( is_tax( 'post_format', 'post-format-video' ) ) :
-							_e( 'Videos', 'tyler' );
+    <?php get_template_part( 'content', 'none' ); ?>
 
-						elseif ( is_tax( 'post_format', 'post-format-quote' ) ) :
-							_e( 'Quotes', 'tyler' );
-
-						elseif ( is_tax( 'post_format', 'post-format-link' ) ) :
-							_e( 'Links', 'tyler' );
-
-						elseif ( is_tax( 'post_format', 'post-format-status' ) ) :
-							_e( 'Statuses', 'tyler' );
-
-						elseif ( is_tax( 'post_format', 'post-format-audio' ) ) :
-							_e( 'Audios', 'tyler' );
-
-						elseif ( is_tax( 'post_format', 'post-format-chat' ) ) :
-							_e( 'Chats', 'tyler' );
-
-						else :
-							_e( 'Archives', 'tyler' );
-
-						endif;
-					?>
-				</h1>
-				<?php
-					// Show an optional term description.
-					$term_description = term_description();
-					if ( ! empty( $term_description ) ) :
-						printf( '<div class="taxonomy-description">%s</div>', $term_description );
-					endif;
-				?>
-			</header><!-- .page-header -->
-
-			<?php /* Start the Loop */ ?>
-			<?php while ( have_posts() ) : the_post(); ?>
-
-				<?php
-					/* Include the Post-Format-specific template for the content.
-					 * If you want to override this in a child theme, then include a file
-					 * called content-___.php (where ___ is the Post Format name) and that will be used instead.
-					 */
-					get_template_part( 'content', get_post_format() );
-				?>
-
-			<?php endwhile; ?>
-
-			<?php tyler_paging_nav(); ?>
-
-		<?php else : ?>
-
-			<?php get_template_part( 'content', 'none' ); ?>
-
-		<?php endif; ?>
-
-		</main><!-- #main -->
-	</section><!-- #primary -->
-
-<?php get_sidebar(); ?>
+  </article>
+    
+  <?php endif; ?>
+  
 <?php get_footer(); ?>

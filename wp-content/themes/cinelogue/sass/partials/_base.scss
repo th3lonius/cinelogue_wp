@@ -1,9 +1,11 @@
 html {
   font-size: 100%;
-  overflow: auto;
+  overflow-x: hidden;
+  overflow-y: auto;
 }
 
 body {
+  background-color: $black;
   color: $text-black;
   font-family: $title-font;
   font-size: 100%;

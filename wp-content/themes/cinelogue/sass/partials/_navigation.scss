@@ -1,3 +1,87 @@
+.small-header {
+  background: $black;
+  .colophon {
+    background-color: $black;
+    width: 8vw; height: 130px;
+    .logo {
+      background-size: 100%;
+      height: 100%;
+    }
+    h1 {
+      opacity: 0;
+    }
+  }
+  .lines-button {
+    @include transform(translate(20px, -21px) scale(0.9));
+  }
+  .scroll-quote {
+    opacity: 1;
+  }
+  main ~ .single-essay--photo {
+    width: 100%!important;
+  }
+}
+
+/* PRIMARY NAV */
+body.pml-open .push-menu-right {
+  left: 0;
+}
+
+body.pml-open main {
+  @include transition(all, 0.2s, cubic-bezier(0.165, 0.84, 0.44, 1), 0.1s);
+  &::before {
+    @include transition(all, 0.2s, cubic-bezier(0.165, 0.84, 0.44, 1), 0.1s);
+    background-color: transparentize($mask-black, 0.1);
+    content: "";
+    position: absolute;
+    top: 0; right: 0; bottom: 0; left: 0;
+    z-index: 9999999;
+  }
+}
+
+.global-header {
+  @include transition;
+  background-color: $black;
+  position: fixed;
+  top: 0; left: -12%; bottom: 0;
+  width: 10vw; height: 100%;
+  z-index: 99999;
+  .header-content {
+    height: 100%;
+  }
+}
+
+.nav-main {
+  @include transition;
+  height: 100%;
+  position: relative;
+  top: 170px;
+  z-index: 999999;
+  ul {
+    @extend %clearfix;
+    li {
+      border-bottom: 1px solid rgba(0,0,0,0.05);
+      a {
+        @include transition;
+        background-color: rgba(255,255,255,0.04);
+        color: $white;
+        display: block;
+        font-family: $header-font;
+        font-size: $ms7;
+        letter-spacing: 0.1em;
+        line-height: 65px;
+        padding: 0 $ms2;
+        text-transform: uppercase;
+        height: 100%;
+        &:hover {
+          background-color: $dark-blue;
+        }
+      }
+    }
+  }
+}
+
+/* NAV BUTTON */
 @mixin line {
   @include transition(all, 0.2s, ease);
   display: inline-block;
@@ -11,9 +95,6 @@ $button-size: 2.8rem;
 
 .lines-button {
   @include transition(all, 0.2s, ease);
-  @include respond-to(tablet) {
-    display: none;
-  }
   display: inline-block;
   cursor: pointer;
   position: fixed;
@@ -73,50 +154,6 @@ $button-size: 2.8rem;
   }
   &::after {
     @include rotate(Z, -45);
-  }
-}
-/* PRIMARY NAV */
-
-body.pml-open .push-menu-right {
-  right: 0;
-}
-
-body.pml-open main {
-  right: 12%;
-}
-
-.nav-main {
-  @include transition;
-  display: inline-block;
-  margin-left: 200px;
-  position: absolute;
-  bottom: 0;
-  height: 100%;
-  z-index: 999999;
-  ul {
-    @extend %clearfix;
-    li {
-      float: left;
-      a {
-        @include transition;
-        @include respond-to(laptop) {
-          font-size: $base;
-        }
-        color: $white;
-        display: block;
-        font-family: $header-font;
-        font-size: $ms7;
-        letter-spacing: 0.1em;
-        line-height: 100px;
-        padding: 0 $ms4;
-        text-transform: uppercase;
-        height: 100%;
-        &:hover {
-          background-color: $dark-blue;
-          color: $white;
-        }
-      }
-    }
   }
 }
 

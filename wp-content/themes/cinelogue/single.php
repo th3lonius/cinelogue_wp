@@ -1,5 +1,81 @@
 <?php get_header(); ?>
 
+<?php if ( is_singular( 'issues' ) ) { ?>
+
+<?php if( have_posts() ) the_post(); ?>
+
+<article class="single-essay">
+      
+  <?php 
+
+  $image = get_field('photo');
+
+  if( !empty($image) ): ?>
+
+      <section class="col-8-12 single-essay--photo" style="background-image: url(<?php echo $image['url']; ?>);"></section>
+
+  <?php endif; ?>
+   
+  <section class="col-4-12 single-essay--intro">
+
+    <header>
+    
+      <span class="issue-number"><?php the_title(); ?></span>
+     
+      <h1 class="single-essay--title"><?php the_field('title'); ?></h1>
+            
+      <?php get_template_part( 'module', 'single-essay-meta' ); ?>
+
+    </header>
+    
+  </section>
+   
+</article>
+
+<article class="col-10-12 single-essay--body">
+     
+  <section class="col-8-12">
+             
+      <?php the_content(); ?>
+
+  </section>
+  
+  <aside class="col-4-12">
+    
+    <?php 
+
+    $posts = get_field('articles');
+
+    if( $posts ): ?>
+       
+        <ul class="single-issue--contents">
+        
+        <?php foreach( $posts as $p ): // variable must NOT be called $post (IMPORTANT) ?>
+                   
+          <li>
+            <a href="<?php echo get_permalink( $p->ID ); ?>"><?php echo get_the_title( $p->ID ); ?></a>
+          </li>
+          
+        <?php endforeach; ?>
+        
+        </ul>
+        
+    <?php endif; ?>
+    
+  </aside>
+  
+</article>
+
+<?php } else { ?>
+
+
+
+
+
+
+
+
+
 <?php if( have_posts() ) the_post(); ?>
 
 <article class="single-essay">
@@ -71,7 +147,7 @@
 
     <?php endif; */?>
   </aside>
--->
+
       
   <aside class="col-4-12">
   
@@ -80,9 +156,11 @@
     </blockquote>
   
   </aside>
-       
 
+-->
 
 </article>
+
+<?php } ?>
 
 <?php get_footer(); ?>

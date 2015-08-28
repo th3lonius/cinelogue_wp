@@ -58,9 +58,7 @@
         <header>
          
           <h1 class="essay-title"><?php the_title(); ?></h1>
-          
-          <date><?php the_date(); ?></date>
-          
+                    
           <?php get_template_part( 'module', 'film-meta' ); ?>
 
           <?php get_template_part( 'module', 'single-essay-meta' ); ?>
