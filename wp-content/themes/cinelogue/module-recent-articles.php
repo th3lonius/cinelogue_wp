@@ -32,19 +32,24 @@
     
     <?php while ( $query->have_posts() ) : $query->the_post(); ?>
 
-    <?php
+    <?php 
 
-    $rows = get_field('screencaps' ); // get all the rows
-    $first_row = $rows[0]; // get the first row
-    $first_row_image = $first_row['screencap' ]; // get the sub field value 
+    $image = get_field('screencap');
 
-    // Note
-    // $first_row_image = 123 (image ID)
+    if( !empty($image) ): 
 
-    $image = wp_get_attachment_image_src( $first_row_image, 'full' );
-    // url = $image[0];
-    // width = $image[1];
-    // height = $image[2];
+        // vars
+        $url = $image['url'];
+        $title = $image['title'];
+        $alt = $image['alt'];
+        $caption = $image['caption'];
+
+        // thumbnail
+        $size = 'thumbnail';
+        $thumb = $image['sizes'][ $size ];
+        $width = $image['sizes'][ $size . '-width' ];
+        $height = $image['sizes'][ $size . '-height' ];
+
     ?>
     
     <section class="col-8-12 recent-article" id="most-recent">
@@ -52,7 +57,7 @@
       <a href="<?php the_permalink();?>">
 
         <figure class="recent-article--photo">
-          <div style="background-image: url(<?php echo $image[0]; ?>);"></div>
+          <div style="background-image: url(<?php echo $url; ?>);"></div>
         </figure>
 
         <header>
@@ -70,14 +75,14 @@
       </a>
       
     </section>
+    
+    <?php endif; ?>
       
     <?php endwhile; ?>
 
   <?php else : ?>
 
     <?php get_template_part( 'content', 'none' ); ?>
-
-  </article>
     
   <?php endif; ?>
   
@@ -98,29 +103,36 @@
 ?>  
 
   <?php while ( $query->have_posts() ) : $query->the_post(); ?>
-
-    <?php
-
-    $rows = get_field('screencaps' ); // get all the rows
-    $first_row = $rows[0]; // get the first row
-    $first_row_image = $first_row['screencap' ]; // get the sub field value 
-
-    // Note
-    // $first_row_image = 123 (image ID)
-
-    $image = wp_get_attachment_image_src( $first_row_image, 'full' );
-    // url = $image[0];
-    // width = $image[1];
-    // height = $image[2];
-    ?>
-    
+  
     <section class="col-4-12 recent-article">
       
       <a href="<?php the_permalink();?>">
+        
+        <?php 
+
+        $image = get_field('screencap');
+
+        if( !empty($image) ): 
+
+            // vars
+            $url = $image['url'];
+            $title = $image['title'];
+            $alt = $image['alt'];
+            $caption = $image['caption'];
+
+            // thumbnail
+            $size = 'thumbnail';
+            $thumb = $image['sizes'][ $size ];
+            $width = $image['sizes'][ $size . '-width' ];
+            $height = $image['sizes'][ $size . '-height' ];
+
+        ?>
 
         <figure class="recent-article--photo">
-          <div style="background-image: url(<?php echo $image[0]; ?>);"></div>
+          <div style="background-image: url(<?php echo $url; ?>);"></div>
         </figure>
+        
+        <?php endif; ?>
 
         <header>
          

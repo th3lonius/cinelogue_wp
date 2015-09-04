@@ -2,11 +2,7 @@
    
 <?php wp_footer(); ?>
  
-  <footer>
-   
-    <div class="footer-wrapper">gfhfgh</div>
-    
-  </footer>
+
    
     
 	    

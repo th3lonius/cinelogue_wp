@@ -80,22 +80,72 @@
 
 <article class="single-essay">
       
-  <?php
+  <?php 
 
-    $rows = get_field('screencaps' ); // get all the rows
-    $first_row = $rows[0]; // get the first row
-    $first_row_image = $first_row['screencap' ]; // get the sub field value 
+  $image = get_field('screencap');
 
-    // Note
-    // $first_row_image = 123 (image ID)
+  if( !empty($image) ): 
 
-    $image = wp_get_attachment_image_src( $first_row_image, 'full' );
-    // url = $image[0];
-    // width = $image[1];
-    // height = $image[2];
-    ?>
+      // vars
+      $url = $image['url'];
+      $title = $image['title'];
+      $alt = $image['alt'];
+      $caption = $image['caption'];
 
-  <section class="col-8-12 single-essay--photo" style="background-image: url(<?php echo $image[0]; ?>);"></section>
+      // thumbnail
+      $size = 'thumbnail';
+      $thumb = $image['sizes'][ $size ];
+      $width = $image['sizes'][ $size . '-width' ];
+      $height = $image['sizes'][ $size . '-height' ];
+
+  ?>
+  
+  <?php 
+
+  $trailer = get_field('trailer');
+
+  if( !empty($trailer) ): 
+
+  ?>
+   
+  <section class="col-12-12 single-essay--photo">
+  
+    <script>
+
+      var tag = document.createElement('script');
+
+      tag.src = "//www.youtube.com/iframe_api";
+      var firstScriptTag = document.getElementsByTagName('script')[0];
+      firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
+      var player;
+
+      function onYouTubeIframeAPIReady() {
+          player = new YT.Player('ytplayer', {
+              events: {
+                  'onReady': onPlayerReady
+              }
+          });
+      }
+
+      function onPlayerReady(event) {
+          event.target.playVideo();
+          player.mute();
+      }
+
+    </script>
+    
+      <iframe id="ytplayer" type="text/html" width="100%" height="100%" src="https://www.youtube.com/embed/<?php the_field('trailer'); ?>?feature=oembed&wmode=transparent&rel=0&autoplay=1&controls=0&showinfo=0&enablejsapi=1&hd=1" frameborder="0" allowfullscreen></iframe>
+
+  </section>
+   
+  <?php else: ?>
+    
+  <section class="col-8-12 single-essay--photo" style="background-image: url(<?php echo $url; ?>);"></section>
+      
+  <?php endif; ?>
+  
+  <?php endif; ?>
    
   <section class="col-4-12 single-essay--intro">
 
@@ -103,7 +153,17 @@
      
       <h1 class="single-essay--title"><?php the_title(); ?></h1>
       
-      <?php get_template_part( 'module', 'imdb-api' ); ?>
+      <?php
+              
+      $meta = get_field('director');
+              
+      if( !empty($meta) ) {
+        
+      } else {
+        
+        get_template_part( 'module', 'imdb-api' );
+        
+      } ?>
       
       <?php get_template_part( 'module', 'film-meta' ); ?>
       

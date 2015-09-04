@@ -1,10 +1,14 @@
 jQuery(document).ready(function($){
-  
+    
 /*----- FLOWTYPE -----*/
 $('body').flowtype({
-  minFont : 16,
+  minFont : 14,
   maxFont : 34,
   fontRatio : 80
+});
+  
+$(function(){
+  $('#archive').mixItUp();
 });
 
 /*----- PARALLAX -----*/

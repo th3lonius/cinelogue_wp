@@ -9,6 +9,8 @@
 
 get_header(); ?>
 
+<span style="font-size: 52px; color: red;">I AM ARCHIVE.PHP</span>
+
 <?php
  
     $args = array(
@@ -17,7 +19,7 @@ get_header(); ?>
 
     $query = new WP_Query( $args );
 
-?>  
+?>
 
   <?php if ( $query->have_posts() ) : ?>
 

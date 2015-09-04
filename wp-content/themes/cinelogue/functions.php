@@ -14,7 +14,7 @@ if ( ! function_exists( 'cinelogue_setup' ) ) :
  * as indicating support for post thumbnails.
  */
 
-add_filter( 'jpeg_quality', create_function( '', 'return 80;' ) );
+add_filter( 'jpeg_quality', create_function( '', 'return 70;' ) );
 
 // Create the Custom Excerpts callback
 function variable_excerpt($length_callback = '', $more_callback = '')
@@ -49,6 +49,12 @@ register_nav_menus(
     'secondary-menu' => __( 'Secondary Menu' )
     )
 );
+
+if ( !function_exists('media_handle_sideload') ) {
+  require_once(ABSPATH . "wp-admin" . '/includes/image.php');
+  require_once(ABSPATH . "wp-admin" . '/includes/file.php');
+  require_once(ABSPATH . "wp-admin" . '/includes/media.php');
+}
 
 /*-----------------------------------------------------------------------------------*/
 /*  enable svg images in media uploader
@@ -94,9 +100,11 @@ function theme_js() {
     wp_register_script( 'main', get_template_directory_uri() . '/js/scripts.js', array( 'jquery' ), '', true );
     wp_register_script( 'superslides', get_template_directory_uri() . '/js/superslides.js', array( 'jquery' ), '', true );
     wp_register_script( 'flowtype', get_template_directory_uri() . '/js/flowtype.min.js', array( 'jquery' ), '', true );
+    wp_register_script( 'mixitup', get_template_directory_uri() . '/js/mixitup.min.js', array( 'jquery' ), '', true );
     wp_enqueue_script( 'main' );
     wp_enqueue_script( 'superslides' );
     wp_enqueue_script( 'flowtype' );
+    wp_enqueue_script( 'mixitup' );
 }
 
 add_action( 'wp_enqueue_scripts', 'theme_js');

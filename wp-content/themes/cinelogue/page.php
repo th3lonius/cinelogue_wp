@@ -1,31 +1,176 @@
 <?php get_header(); ?>
-    
-    <?php if ( is_page( 'About' ) ) { ?>
 
-    <article>
+  <?php if ( is_page( 'About' ) ) { ?>
+
+    <?php
+
+        $args = array(
+          'pagename' => 'about'
+        );
+
+        $query = new WP_Query( $args );
+
+    ?>
+
+    <?php if ( $query->have_posts() ) : ?>
+
+      <article class="static-page col-10-12">
+
+      <?php while ( $query->have_posts() ) : $query->the_post(); ?>
+        
+        <section class="col-8-12 static-page--body">
+        
+          <?php the_content(); ?>
+          
+        </section>
+
+      <?php endwhile; ?>
+        
+      </article>
+
+    <?php endif; ?>
+
+    <?php } elseif ( is_page( 'Essays' ) ) { ?>
+
+    <?php
+
+        $args = array(
+          'post_type' => 'post',
+          'posts_per_page' => 20,
+          'orderby' => 'date',
+          'order'   => 'DESC'
+        );
+
+        $query = new WP_Query( $args );
+
+    ?>
+
+      <?php if ( $query->have_posts() ) : ?>
+
+        <article class="col-12-12 recent-articles">
+          
+          <div class="controls">
+           
+            <?php
+  
+              function get_meta_values( $key = '', $type = 'post', $status = 'publish' ) {
+
+                global $wpdb;
+
+                if( empty( $key ) )
+                    return;
+
+                $r = $wpdb->get_col( $wpdb->prepare( "
+                    SELECT DISTINCT pm.meta_value FROM {$wpdb->postmeta} pm
+                    LEFT JOIN {$wpdb->posts} p ON p.ID = pm.post_id
+                    WHERE pm.meta_key = '%s' 
+                    AND p.post_status = '%s' 
+                    AND p.post_type = '%s'
+                ", $key, $status, $type ) );
+
+                return $r;
+              }
+  
+              
+              echo explode(' ',trim(implode( '<br />', get_meta_values( 'country' ))));
+  
+  
+            ?>
+            
+            <label>Filter:</label>
+
+            <button class="filter" data-filter="all">All</button>
+            <button class="filter" data-filter=".category-1">Director</button>
+            <button class="filter" data-filter="<?php echo get_the_date(); ?>">Publication Date</button>
+
+            <label>Sort:</label>
+
+            <button class="sort" data-sort="default">Default</button>
+            <button class="sort" data-sort="myorder:asc">Asc</button>
+            <button class="sort" data-sort="myorder:desc">Desc</button>
+            
+          </div>          
+          
+          <section id="archive" class="container">
+            
+          <?php
+            function stripFields($string) {
+                //Lower case everything
+                $string = strtolower($string);
+                //Make alphanumeric (removes all other characters)
+                $string = preg_replace("/[^a-z0-9_\s-]/", "", $string);
+                //Clean up multiple dashes or whitespaces
+                $string = preg_replace("/[\s-]+/", " ", $string);
+                //Convert whitespaces and underscore to dash
+                $string = preg_replace("/[\s_]/", "-", $string);
+                return $string;
+            }
+          ?>
+            
+          <?php while ( $query->have_posts() ) : $query->the_post(); ?>
+            
+            <?php $director = get_field('director'); ?>
+            <?php $country = get_field('country'); ?>
+  
+            <div class="col-4-12 recent-article mix <?php echo stripFields($director); ?> <?php echo stripFields($country); ?>" data-myorder="1">
+              <a href="<?php the_permalink(); ?>">
+                
+                <?php 
+
+                $image = get_field('screencap');
+
+                if( !empty($image) ): 
+
+                    // vars
+                    $url = $image['url'];
+                    $title = $image['title'];
+                    $alt = $image['alt'];
+                    $caption = $image['caption'];
+
+                    // thumbnail
+                    $size = 'thumbnail';
+                    $thumb = $image['sizes'][ $size ];
+                    $width = $image['sizes'][ $size . '-width' ];
+                    $height = $image['sizes'][ $size . '-height' ];
+
+                ?>
+
+                <figure class="recent-article--photo">
+                  <div style="background-image: url(<?php echo $url; ?>);"></div>
+                </figure>
+
+                <?php endif; ?>
+                
+                <header>
+
+                  <h1 class="essay-title"><?php the_title(); ?></h1>
+
+                  <?php get_template_part( 'module', 'film-meta' ); ?>
+
+                  <?php get_template_part( 'module', 'single-essay-meta' ); ?>
+
+                </header>
+                
+                <blockquote>
+                  <?php variable_excerpt('variable_excerpt_length'); ?>
+                </blockquote>
+                
+              </a>
+              
+            </div>
+            
+          <?php endwhile; ?>
+  
+            <div class="gap"></div>
+            <div class="gap"></div>
+            
+          </section>
+          
+        </article>
+
+      <?php endif; ?>
 
 
-<p><i>"Trying to define yourself is like trying to bite your own teeth"</i>—Alan Watts</p>
-<br>
-<p>Cinelogue is a collaborative enterprise between a diverse group of writers to critically examine film as an art and a medium. Though based in the United States, Cinelogue strives to be a place where film can be discussed independent of race, creed and national boundary, though with the understanding that all of those things color our experience as well as the films we examine. We celebrate the kaleidoscopic fancy of global cinema; we celebrate films that, regardless of their renown or lack thereof, are accomplished pieces, as Brakhage would have it, of "visual music". As a result, we tend to look at films through a decidedly auteurist lens, though we refuse to define authorship as strictly the domain of film directors, or ascribe to the medium any monolithic sense of being.</p>
-<br>
-<p>If we at Cinelogue share a common belief, it's that cinema is principally a sensory medium--one in which the "raw materials" of a story are not so important as their configuration--and films that we treasure are those that channel their ideas through means that are cinematic, unique to the medium. If we have a particular focus, it's on classic, foreign, independent and art house cinema, though the precise content is determined by the babel of voices of our contributors who have complete freedom to write about anything they wish.</p>
-<br>
-<p class="postcontent"><i>"I feel that film is inevitably the medium of the future. It has been for years, decades, but more so now than ever."</i>—Sean Lennon</p>
-<br>
-<p>As a celebration of film art, one could call Cinelogue an exercise in the art of criticism. However, we don't subscribe to (nor prescribe) any particular school. Neither do we have pretensions of authority; we don't presume that the discussion is ever final and instead encourage just that; the commenting capability exists to serve this purpose of community.</p><br>
-
-
-<div class="headerTitle gray">Contact</div>
-<p class="postcontent">Send questions, comments or suggestions to the administrator with the form below. If you are interested in becoming a contributor simply indicate this in the subject header, or send an email to admin@cinelogue.com with sample work attached.</p>
-
-
-</div>
-
-
-
-	</article>
-	
-	<?php } ?>
+    <?php } ?>
 
 <?php get_footer(); ?>

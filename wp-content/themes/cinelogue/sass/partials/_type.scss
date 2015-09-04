@@ -57,7 +57,7 @@ blockquote {
 .perfect-pullquote {
   float: none;
   font-size: $ms4;
-  margin: 0 $ms4 $base 0;
+  margin-top: $ms8;
   padding: 0 1.4em 0 0;
   width: 50%;
   blockquote {
@@ -71,7 +71,7 @@ blockquote {
 
 .pullquote-align-left {
   position: absolute;
-  left: -55%;
+  left: -56%;
 }
 
 .pullquote-align-full {

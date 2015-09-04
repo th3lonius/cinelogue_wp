@@ -1,6 +1,32 @@
 MixItUp ChangeLog
 =================
 
+## 2.1.10
+- Fixed accidental global declaration of `unBrake` in the _cleanUp method
+- Force ES5 "Strict Mode"
+- Re-added package.json "version" parameter, as required by grunt bump task during build
+
+## 2.1.9
+- Fixed accidental global declaration of `i` in one loop.
+
+## 2.1.8
+- Fixed issue where bound handlers are not removed from prototype when destroying a MixItUp instance
+- Wrapped _updateControls .filter() call in a try/catch to prevent jQuery syntax errors crashing MixItUp when complex selectors are passed via the API
+
+## 2.1.7
+- Fixed removeStyle jQuery method to account for camel-cased style properties in firefox, affecting animateResizeTargets.
+- Replaced all == with ===
+- Ensure there are targets before before calling nextElementSibling in _printSort method
+- Removed some messy whitespace
+
+## 2.1.6
+- Replaced occurences of .nodeValue with .value to remove deprecation warning in latest Chrome
+- Removed miscellaneous trailing whitespace characters
+
+## 2.1.5
+- Fixed mis-naming issue preventing user-defined staggerSequence function from being called.
+- Fixed issue where filter-in animations broke if 'fade' effect was not present
+
 ## 2.1.4
 - Made new sorting order available to futureState object during mixStart event
 - Made new display value available to futureState object during mixStart event
